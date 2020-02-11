@@ -2,15 +2,14 @@ import React from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
-import { Card } from "./card";
-import { Navbar } from "./navbar";
 
 //create your first component
-export function Home() {
+export function Navbar() {
 	return (
 		<>
-			<Navbar />
-			<Card />
+			<nav className="navbar navbar-light bg-transparent justify-content-center">
+				<h1> todos </h1>
+			</nav>
 		</>
 	);
 }
