@@ -5,12 +5,36 @@ export function Card() {
 	const [todo, setTodo] = useState();
 	const [list, setList] = useState([]);
 
+	function newToDo() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/dlozano93", {
+			method: "POST",
+			body: JSON.stringify([]),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => resp.json())
+			.then(data => {
+				console.log("newToDo", data);
+				saveToDo([
+					{
+						label:
+							"list is empty, enter new ToDo then press delete on this one",
+						done: true
+					}
+				]);
+			});
+	}
 	function getToDo() {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/dlozano93")
 			.then(resp => resp.json())
 			.then(data => {
-				setList(data);
 				console.log("getToDo", data);
+				if (Array.isArray(data)) {
+					setList(data);
+				} else {
+					newToDo();
+				}
 			});
 	}
 
@@ -48,8 +72,9 @@ export function Card() {
 										done: false
 									})
 								);
-								setTodo("");
 							}
+
+							setTodo();
 						}}
 						type="text"
 						className="form-control"
@@ -61,8 +86,8 @@ export function Card() {
 						<div
 							className={
 								item.done
-									? "alert alert-primary"
-									: "alert alert-secondary"
+									? "alert alert-success"
+									: "alert alert-warning"
 							}
 							key={index}>
 							<div className="row">
@@ -86,6 +111,35 @@ export function Card() {
 											)
 										}>
 										Done
+									</button>
+									<button
+										type="button"
+										className="btn btn-danger"
+										onClick={() =>
+											saveToDo(
+												list.map((e, i) => {
+													if (index === i) {
+														return {
+															label: e.label,
+															done: false
+														};
+													} else {
+														return e;
+													}
+												})
+											)
+										}>
+										Not Done
+									</button>
+									<button
+										type="button"
+										className="btn btn-dark"
+										onClick={() =>
+											saveToDo(
+												list.filter(e => e !== item)
+											)
+										}>
+										DELETE
 									</button>
 								</div>
 							</div>
