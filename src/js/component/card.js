@@ -18,9 +18,8 @@ export function Card() {
 				console.log("newToDo", data);
 				saveToDo([
 					{
-						label:
-							"list is empty, enter new ToDo then press delete on this one",
-						done: true
+						label: "ADD NEW TODO, THEN PRESS DELETE ON THIS ONE",
+						done: false
 					}
 				]);
 			});
@@ -72,9 +71,8 @@ export function Card() {
 										done: false
 									})
 								);
+								setTodo("");
 							}
-
-							setTodo();
 						}}
 						type="text"
 						className="form-control"
@@ -95,7 +93,8 @@ export function Card() {
 								<div className="col text-center">
 									<button
 										type="button"
-										className="btn btn-success"
+										className="btn btn-outline-success"
+										onMouseOver="btn btn-success"
 										onClick={() =>
 											saveToDo(
 												list.map((e, i) => {
@@ -114,7 +113,8 @@ export function Card() {
 									</button>
 									<button
 										type="button"
-										className="btn btn-danger"
+										className="btn btn-outline-danger"
+										onMouseOver="btn-danger"
 										onClick={() =>
 											saveToDo(
 												list.map((e, i) => {
@@ -133,7 +133,8 @@ export function Card() {
 									</button>
 									<button
 										type="button"
-										className="btn btn-dark"
+										className="btn btn-outline-dark"
+										onMouseOver="btn-dark"
 										onClick={() =>
 											saveToDo(
 												list.filter(e => e !== item)
